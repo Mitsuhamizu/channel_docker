@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
-ENV HTTP_PROXY="http://host.docker.internal:1087"
-ENV HTTPS_PROXY="https://host.docker.internal:1087"
+# ENV HTTP_PROXY="http://host.docker.internal:1087"
+# ENV HTTPS_PROXY="https://host.docker.internal:1087"
 RUN apt-get update && \
     apt-get install -y \    
     libssl-dev \
@@ -40,8 +40,8 @@ RUN tar -zxvf ckb-indexer-linux-x86_64.tar.gz
 RUN mkdir indexer_tmp
 
 # Get channel demo.
-RUN git config --global http.proxy 'socks5://host.docker.internal:1086'
-RUN git config --global https.proxy 'socks5://host.docker.internal:1086'
+# RUN git config --global http.proxy 'socks5://host.docker.internal:1086'
+# RUN git config --global https.proxy 'socks5://host.docker.internal:1086'
 RUN git clone http://github.com/ZhichunLu-11/channel_demo_tg_msg_sender.git
 WORKDIR /channel_demo_tg_msg_sender/client
 RUN gem install bundler
@@ -57,6 +57,6 @@ RUN bundle install
 
 COPY docker-entrypoint.sh /usr/local/bin
 RUN chmod 777 /usr/local/bin/docker-entrypoint.sh
-RUN unset HTTP_PROXY
-RUN unset HTTPS_PROXY
+# RUN unset HTTP_PROXY
+# RUN unset HTTPS_PROXY
 ENTRYPOINT ["docker-entrypoint.sh"]
